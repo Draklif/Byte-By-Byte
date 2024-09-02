@@ -1,13 +1,11 @@
-export interface Project {
+export interface Article {
     id: number;
     name: string;
     desc_short: string;
     date: string;
-    authors: { name: string }[];
-    tags: string[];
-    format: string[];
-    images: string[];
-    links: string[];
+    author: string;
+    tag: string;
+    image: string;
     desc_long: string;
 }
   

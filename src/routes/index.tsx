@@ -1,10 +1,10 @@
-import MainModel from "@/components/models/mainModel";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import data from "@/data/data.json";
-import CategoryCard from "@/components/reusables/categoryCard";
+import ArticleCard from "@/components/reusables/articleCard";
 import FeaturedCard from "@/components/reusables/featuredCard";
-import { Project } from "@/types";
+import Hero from "@/components/reusables/hero";
+import { Article } from "@/types";
 import {
   Carousel,
   CarouselContent,
@@ -17,82 +17,53 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const projects: Project[] = data.projects;
+const articles: Article[] = data.articles;
+
 
 function Landing() {
   const router = useNavigate();
-  const [categories, setCategories] = useState([]);
-  const [proyectos, setProyectos] = useState<Project[]>([]);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
-    const initialProjects = projects.filter(
-      (p) => p.format.length === 0 || p.format.every((fmt) => fmt === "")
-    );
-    setProyectos(initialProjects);
+    // Cargar artículos desde data.json
+    setArticles(data.articles);
+  }, []);
 
-    const categoryMap = new Map();
-    proyectos.forEach((project) => {
-      project.tags.forEach((tag) => {
-        if (!categoryMap.has(tag)) {
-          categoryMap.set(tag, project.images[0]);
-        }
-      });
-    });
-    setCategories(Array.from(categoryMap, ([tag, image]) => ({ tag, image })));
-  });
-
-  const handleCategorySelect = (category: string) => {
-    router({ to: `/proyectos?category=${encodeURIComponent(category)}` });
-  };
+  const backgroundImage = "public/Default.png"; // Ruta a la imagen de fondo
+  const coverImage = "public/Image.png"; // Ruta a la imagen de portada en vertical
+  const videoTitle = "Byte by Byte: The Animation"; // Título del video
+  const videoUrl = "/video-url"; // URL para redirigir al video
 
   return (
-    <div className="bg-gray-900 min-h-screen text-white p-6">
-      <MainModel />
-      <h2 className="text-2xl font-bold mt-8 mb-4">Últimos Proyectos</h2>
-      <div className="rounded-lg bg-gray-800 mb-8 flex items-center justify-center p-4">
-        <Carousel className="w-[1440px]">
-          <CarouselContent>
-            <CarouselItem>
-              {proyectos[0] && <FeaturedCard project={proyectos[0]} />}
+    <div className="min-h-screen text-white p-6" style={{background: "#202020"}}>
+  <Hero
+    backgroundImage={backgroundImage}
+    coverImage={coverImage}
+    videoTitle={videoTitle}
+    videoUrl={videoUrl}
+    glowColor="#444543"
+  />
+  <div className="max-w-7xl mx-auto p-4 mt-8">
+    <h2 className="text-2xl font-bold mt-8 mb-4"><span className="mx-2">•</span>Últimas Noticias</h2>
+    <div className="relative rounded-lg mb-8 flex items-center justify-center py-4">
+      <Carousel opts={{ align: "start", loop: false }} className="w-full relative">
+        <CarouselContent>
+          {articles.map((article) => (
+            <CarouselItem key={article.id} className="basis-1/4">
+              <FeaturedCard article={article}/>
             </CarouselItem>
-            <CarouselItem>
-              {proyectos[1] && <FeaturedCard project={proyectos[1]} />}
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious className="text-black" />
-          <CarouselNext className="text-black" />
-        </Carousel>
-      </div>
-      <h1 className="text-3xl font-bold mt-8">Más Información</h1>
-      <p className="text-white mt-4 mb-8">
-        Este portal web está diseñado para todos aquellos interesados no
-        solamente en crear y aportar al catálogo creciente de proyectos
-        multimedia de la Universidad de Boyacá, sino también para quienes deseen
-        ver y explorar los diferentes productos que en Ingeniería en Multimedia
-        queremos ofrecer.
-      </p>
-      <p className="text-blue-400 italic">
-        ¡Únete ahora a la carrera del futuro y sé parte de los mejores!
-      </p>
-      <h2 className="text-2xl font-bold mt-8 mb-4">Explora Más</h2>
-      <div className="rounded-lg bg-gray-800 mb-8 flex items-center justify-center p-4">
-        <Carousel opts={{ align: "start", loop: true }} className="w-4/5">
-          <CarouselContent className="-ml-1">
-            {categories.map((category) => (
-              <CarouselItem key={category.tag} className="basis-1/5">
-                <CategoryCard
-                  category={category.tag}
-                  backgroundImage={category.image}
-                  onClick={() => handleCategorySelect(category.tag)}
-                  isActive={false}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="text-black" />
-          <CarouselNext className="text-black" />
-        </Carousel>
-      </div>
+          ))}
+        </CarouselContent>
+        {/* Botones Absolutos en la Esquina Superior Derecha */}
+        <CarouselPrevious className="absolute -top-12 right-12 text-black" />
+        <CarouselNext className="absolute -top-12 right-0 text-black" />
+      </Carousel>
     </div>
+    {articles.map((article) => (
+      <ArticleCard key={article.id} article={article}></ArticleCard>
+    ))}
+  </div>
+</div>
+
   );
 }
