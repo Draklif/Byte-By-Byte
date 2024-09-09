@@ -20,6 +20,29 @@ public struct PlayerStats
 
     public void SetStage(Stage stage) { this.stage = stage;}
     public void SetMoney(int money) { this.money = money; }
+    public void ModifyStats(Stat stat, int value)
+    {
+        switch (stat)
+        {
+            case Stat.Happiness:
+                meters.AddHappiness(value);
+                break;
+            case Stat.Hunger:
+                meters.AddHunger(value);
+                break;
+            case Stat.Stress:
+                meters.AddStress(value);
+                break;
+            case Stat.Weight:
+                meters.AddWeight(value);
+                break;
+            case Stat.Knowledge:
+                meters.AddKnowledge(value);
+                break;
+            default:
+                break;
+        }
+    }
 
     public void AddMoney(int money) { this.money += money; if (money < 0) money = 0; }
 }

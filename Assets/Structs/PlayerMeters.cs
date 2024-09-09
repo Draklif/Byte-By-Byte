@@ -29,9 +29,9 @@ public struct PlayerMeters
     public void SetWeight(int weight) { this.weight = weight; }
     public void SetKnowledge(int knowledge) { this.knowledge = knowledge; }
 
-    public void AddHappiness(int happiness) { Mathf.Clamp(this.happiness += happiness, 0, 100); }
-    public void AddHunger(int hunger) { Mathf.Clamp(this.hunger += hunger, 0, 100); }
-    public void AddStress(int stress) { Mathf.Clamp(this.stress += stress, 0, 100); }
-    public void AddWeight(int weight) { Mathf.Clamp(this.weight += weight, 0, 100); }
-    public void AddKnowledge(int knowledge) { Mathf.Clamp(this.knowledge += knowledge, 0, 100); }
+    public void AddHappiness(int happiness) { this.happiness = Mathf.Clamp(this.happiness += happiness, 0, 100); }
+    public void AddHunger(int hunger) { this.hunger = Mathf.Clamp(this.hunger += hunger, 0, 100); }
+    public void AddStress(int stress) { this.stress = Mathf.Clamp(this.stress += stress, 0, 100); }
+    public void AddWeight(int weight) { this.weight = Mathf.Clamp(this.weight += weight, 0, 100); }
+    public void AddKnowledge(int knowledge) { this.knowledge = Mathf.Clamp(this.knowledge += knowledge, 0, 100); }
 }

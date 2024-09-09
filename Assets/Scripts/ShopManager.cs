@@ -4,23 +4,26 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     [SerializeField] int maxItemsInShop = 5;
-    [SerializeField] ItemScriptableObject[] scriptableShopItems;
-    [SerializeField] WorldManager world;
-    [SerializeField] Player player;
 
+    ScriptableObjects SO;
+    WorldManager world;
+    Player player;
+    HUDManager hudManager;
     Inventory shopInventory;
-    PlayerStats playerStats;
     Item[] possibleShopItems;
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        hudManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDManager>();
+        world = GameObject.FindGameObjectWithTag("World").GetComponent<WorldManager>();
+        SO = GameObject.FindGameObjectWithTag("SO").GetComponent<ScriptableObjects>();
         shopInventory = new Inventory(new ArrayList());
-        possibleShopItems = new Item[scriptableShopItems.Length];
-        playerStats = player.GetPlayerStats();
+        possibleShopItems = new Item[SO.scriptableShopItems.Length];
 
-        for (int i = 0; i < scriptableShopItems.Length; i++)
+        for (int i = 0; i < SO.scriptableShopItems.Length; i++)
         {
-            possibleShopItems[i] = new Item(scriptableShopItems[i]);
+            possibleShopItems[i] = new Item(SO.scriptableShopItems[i]);
         }
 
         if (world.isNewDay)
@@ -93,13 +96,13 @@ public class ShopManager : MonoBehaviour
         if (CanBuy(item))
         {
             shopInventory.RemoveItem(item);
-            playerStats.GetInventory().AddItem(item);
+            player.AddItem(item);
         }
     }
 
     bool CanBuy(Item item)
     {
-        return playerStats.GetMoney() >= item.GetPrice();
+        return player.GetMoney() >= item.GetPrice();
     }
 
     void SaveShopIds(ArrayList shopItemIds)

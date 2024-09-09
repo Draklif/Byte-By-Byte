@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
@@ -9,26 +11,30 @@ public class WorldManager : MonoBehaviour
     DateTime firstPlayedDate, lastPlayedDate, actualPlayedDate, lastCheckDate;
     TimeSpan elapsedTimeLastPlayed, elapsedTimeFirstPlayed;
 
+    HUDManager hudManager;
+
+    IEnumerator ManualMode()
+    {
+        yield return new WaitForSeconds(60);
+    }
+
     void Start()
     {
-        //PlayerPrefs.DeleteAll();
-
+        hudManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDManager>();
         actualPlayedDate = DateTime.Now;
         actualDay = (Day)actualPlayedDate.DayOfWeek;
 
         SaveFirstDate();
         SaveLastDate();
         GetElapsedTime();
+        CheckDaily();
+    }
 
-        if (ShouldPerformDailyCheck())
-        {
-            CheckFlags();
-            SaveCheckDate();
-        }
-        else
-        {
-            Debug.Log("El chequeo de nuevo día/semana/mes ya se realizó hoy.");
-        }
+    void Update()
+    {
+        StartCoroutine(ManualMode());
+        actualPlayedDate = DateTime.Now;
+        hudManager.ActualTimer.text = string.Format("{0:D2}:{1:D2}", actualPlayedDate.Hour, actualPlayedDate.Minute);
     }
 
     public Day GetActualDay()
@@ -73,6 +79,12 @@ public class WorldManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    void SaveCheckDate()
+    {
+        PlayerPrefs.SetString("LastCheckDate", actualPlayedDate.ToString());
+        PlayerPrefs.Save();
+    }
+
     void GetElapsedTime()
     {
         firstPlayedDate = DateTime.Now.AddDays(-20);
@@ -87,53 +99,26 @@ public class WorldManager : MonoBehaviour
 
     void CheckFlags()
     {
-        if (elapsedTimeLastPlayed.Days >= 1 || actualPlayedDate.Day != lastPlayedDate.Day)
-        {
-            isNewDay = true;
-            Debug.Log("Es un nuevo día.");
-        }
-        else
-        {
-            isNewDay = false;
-        }
-
-        if (elapsedTimeLastPlayed.Days >= 7 || actualPlayedDate.DayOfWeek == DayOfWeek.Monday && lastPlayedDate.DayOfWeek != DayOfWeek.Monday)
-        {
-            isNewWeek = true;
-            Debug.Log("Es una nueva semana.");
-        }
-        else
-        {
-            isNewWeek = false;
-        }
-
-        if (elapsedTimeLastPlayed.Days >= 30 || actualPlayedDate.Month != lastPlayedDate.Month || actualPlayedDate.Day == 1)
-        {
-            isNewMonth = true;
-            Debug.Log("Es un nuevo mes.");
-        }
-        else
-        {
-            isNewMonth = false;
-        }
+        isNewDay = (elapsedTimeLastPlayed.Days >= 1 || actualPlayedDate.Day != lastPlayedDate.Day);
+        isNewWeek = (elapsedTimeLastPlayed.Days >= 7 || actualPlayedDate.DayOfWeek == DayOfWeek.Monday && lastPlayedDate.DayOfWeek != DayOfWeek.Monday);
+        isNewMonth = (elapsedTimeLastPlayed.Days >= 30 || actualPlayedDate.Month != lastPlayedDate.Month || actualPlayedDate.Day == 1);
     }
 
-    bool ShouldPerformDailyCheck()
+    void CheckDaily()
     {
+        bool canExecuteDaily = true;
         if (PlayerPrefs.HasKey("LastCheckDate"))
         {
             string savedCheckDate = PlayerPrefs.GetString("LastCheckDate");
             lastCheckDate = DateTime.Parse(savedCheckDate);
 
-            return actualPlayedDate.Date > lastCheckDate.Date;
+            canExecuteDaily = actualPlayedDate.Date > lastCheckDate.Date;
         }
 
-        return true;
-    }
-
-    void SaveCheckDate()
-    {
-        PlayerPrefs.SetString("LastCheckDate", actualPlayedDate.ToString());
-        PlayerPrefs.Save();
+        if (canExecuteDaily)
+        {
+            CheckFlags();
+            SaveCheckDate();
+        }
     }
 }
