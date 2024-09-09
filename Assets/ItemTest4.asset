@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c92dfdb9a4c9a044cb5356a38b0d15bb, type: 3}
   m_Name: ItemTest4
   m_EditorClassIdentifier: 
-  itemId: 1
-  itemName: Tes
+  itemId: 4
+  itemName: sdadagggg
   itemDesc: 233
   quantity: 1
   price: 20
