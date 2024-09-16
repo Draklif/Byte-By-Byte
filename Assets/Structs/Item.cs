@@ -5,6 +5,7 @@ public struct Item
     int itemId;
     string itemName;
     string itemDesc;
+    int itemUses;
     int quantity;
     int price;
     int rarity;
@@ -12,11 +13,12 @@ public struct Item
     Day[] availableDays;
     Stat[] statNames;
 
-    public Item(int itemId, string itemName, string itemDesc, int quantity, int[] statValues, int price, int rarity, Day[] availableDays, Stat[] statNames)
+    public Item(int itemId, string itemName, string itemDesc, int itemUses, int quantity, int[] statValues, int price, int rarity, Day[] availableDays, Stat[] statNames)
     {
         this.itemId = itemId;
         this.itemName = itemName;
         this.itemDesc = itemDesc;
+        this.itemUses = itemUses;
         this.quantity = quantity;
         this.price = price;
         this.rarity = rarity;
@@ -30,6 +32,7 @@ public struct Item
         this.itemId = item.itemId;
         this.itemName = item.itemName;
         this.itemDesc = item.itemDesc;
+        this.itemUses = item.itemUses;
         this.quantity = item.quantity;
         this.price = item.price;
         this.rarity = item.rarity;
@@ -38,20 +41,26 @@ public struct Item
         this.statNames = item.statNames;
     }
 
-    public bool RemoveUse(int value)
+    public bool DecreaseQuantity(int value)
     {
         quantity -= value;
         if (quantity <= 0) return true;
         return false;
     }
 
-    public void AddUse(int value)
+    public void IncreaseQuantity(int value)
     {
         quantity += value;
     }
+
     public int GetItemId()
     {
         return itemId;
+    }
+
+    public string GetItemName()
+    {
+        return itemName;
     }
 
     public int GetPrice()
@@ -62,6 +71,30 @@ public struct Item
     public int GetQuantity()
     {
         return quantity;
+    }
+
+    public int GetItemUses()
+    {
+        return itemUses;
+    }
+
+    public Stat[] GetStatNames()
+    {
+        return statNames;
+    }
+    public int[] GetStatValues()
+    {
+        return statValues;
+    }
+
+    public void SetQuantity(int quantity)
+    {
+        this.quantity = quantity;
+    }
+
+    public void SetItemUses(int itemUses)
+    {
+        this.itemUses = itemUses;
     }
 
     public bool IsAvailable(Day day) 

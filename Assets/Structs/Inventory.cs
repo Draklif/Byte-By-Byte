@@ -45,7 +45,7 @@ public struct Inventory
             {
                 if (newItem.Equals(item))
                 {
-                    item.AddUse(newItem.GetQuantity());
+                    item.IncreaseQuantity(newItem.GetQuantity());
                     hasFoundItem = true;
                     break;
                 }
@@ -62,7 +62,7 @@ public struct Inventory
             Item actualItem = (Item)items[i];
             if (actualItem.GetItemId().Equals(item.GetItemId()))
             {
-                actualItem.AddUse(1);
+                actualItem.IncreaseQuantity(1);
                 items[i] = actualItem;
                 hasFoundItem = true;
                 break;
@@ -79,7 +79,7 @@ public struct Inventory
             Item actualItem = (Item)items[i];
             if (actualItem.Equals(item))
             {
-                actualItem.RemoveUse(1);
+                actualItem.DecreaseQuantity(1);
                 if (actualItem.GetQuantity() <= 0)
                 {
                     items.RemoveAt(i);

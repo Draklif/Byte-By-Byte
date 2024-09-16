@@ -6,6 +6,7 @@ public class ItemScriptableObject : ScriptableObject
     public int itemId;
     public string itemName;
     public string itemDesc;
+    public int itemUses;
     public int quantity;
     public int price;
     public int rarity;

@@ -1,21 +1,20 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    [SerializeField] int maxItemsInShop = 5;
-
     ScriptableObjects SO;
     WorldManager world;
     Player player;
-    HUDManager hudManager;
     Inventory shopInventory;
     Item[] possibleShopItems;
+
+    public event Action OnShopUpdated;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        hudManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDManager>();
         world = GameObject.FindGameObjectWithTag("World").GetComponent<WorldManager>();
         SO = GameObject.FindGameObjectWithTag("SO").GetComponent<ScriptableObjects>();
         shopInventory = new Inventory(new ArrayList());
@@ -39,6 +38,7 @@ public class ShopManager : MonoBehaviour
     void OnDailyCheck()
     {
         GenerateShop();
+        OnShopUpdated?.Invoke();
     }
 
     void GenerateShop()
@@ -46,13 +46,13 @@ public class ShopManager : MonoBehaviour
         shopInventory.ClearItems();
         ArrayList shopItemIds = new ArrayList();
 
-        while (shopInventory.GetSize() < maxItemsInShop) 
+        while (shopInventory.GetSize() < 3)
         {
             bool reroll = false;
             Item randomItem;
             do
             {
-                int randomItemIndex = Random.Range(0, possibleShopItems.Length);
+                int randomItemIndex = UnityEngine.Random.Range(0, possibleShopItems.Length);
                 randomItem = possibleShopItems[randomItemIndex];
                 reroll = randomItem.IsAvailable(world.GetActualDay()) && randomItem.HitRarity() ? false : true;
             }
@@ -68,15 +68,21 @@ public class ShopManager : MonoBehaviour
     {
         shopInventory.ClearItems();
 
+        if (ids[0].Equals(""))
+        {
+            return;
+        }
+
         foreach (string idString in ids)
         {
             int id = int.Parse(idString);
             Item? itemToAdd = FindItemById(id);
             if (itemToAdd != null)
             {
-                shopInventory.AddItem(itemToAdd.Value); // Añadir el ítem a la tienda
+                shopInventory.AddItem(itemToAdd.Value);
             }
         }
+        OnShopUpdated?.Invoke();
     }
 
     Item? FindItemById(int id)
@@ -91,32 +97,51 @@ public class ShopManager : MonoBehaviour
         return null;
     }
 
-    void Buy(Item item)
+    public void Buy(Item item)
     {
         if (CanBuy(item))
         {
-            shopInventory.RemoveItem(item);
+            Inventory tempInventory = shopInventory;
+            tempInventory.RemoveItem(item);
+            shopInventory = tempInventory;
+            player.ModifyMoney(-item.GetPrice());
             player.AddItem(item);
+
+            SaveCurrentShopState();
+
+            OnShopUpdated?.Invoke();
         }
     }
 
     bool CanBuy(Item item)
     {
-        return player.GetMoney() >= item.GetPrice();
+        return player.GetMoney() >= item.GetPrice() && player.GetPlayerStats().GetInventory().GetSize() < 3;
     }
+    void SaveCurrentShopState()
+    {
+        ArrayList remainingItemIds = new ArrayList();
+
+        foreach (Item item in shopInventory.GetItems())
+        {
+            remainingItemIds.Add(item.GetItemId());
+        }
+
+        SaveShopIds(remainingItemIds);
+    }
+
 
     void SaveShopIds(ArrayList shopItemIds)
     {
         string shopIds = string.Join(",", shopItemIds.ToArray());
-        PlayerPrefs.SetString("ShopItemIds", shopIds);
+        PlayerPrefs.SetString("Shop_ItemIds", shopIds);
         PlayerPrefs.Save();
     }
 
     void LoadShopFromSavedIds()
     {
-        if (PlayerPrefs.HasKey("ShopItemIds"))
+        if (PlayerPrefs.HasKey("Shop_ItemIds"))
         {
-            string savedIds = PlayerPrefs.GetString("ShopItemIds");
+            string savedIds = PlayerPrefs.GetString("Shop_ItemIds");
             string[] ids = savedIds.Split(',');
 
             GenerateShopByIds(ids);
@@ -125,5 +150,10 @@ public class ShopManager : MonoBehaviour
         {
             GenerateShop();
         }
+    }
+
+    public Inventory GetShopInventory()
+    {
+        return shopInventory;
     }
 }

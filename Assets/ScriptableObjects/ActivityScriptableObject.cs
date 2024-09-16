@@ -7,5 +7,7 @@ public class ActivityScriptableObject : ScriptableObject
     public string activityName;
     public Stat[] statNames;
     public int[] statValues;
+    public Time[] availableTimes;
     public int timeToComplete;
+    public int usesMax;
 }

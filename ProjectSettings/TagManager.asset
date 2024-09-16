@@ -7,6 +7,8 @@ TagManager:
   - HUD
   - World
   - SO
+  - Shop
+  - Activity
   layers:
   - Default
   - TransparentFX

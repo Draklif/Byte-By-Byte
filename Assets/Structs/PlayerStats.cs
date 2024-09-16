@@ -1,3 +1,5 @@
+using System.Collections;
+
 public struct PlayerStats
 {
     PlayerMeters meters;
@@ -44,5 +46,5 @@ public struct PlayerStats
         }
     }
 
-    public void AddMoney(int money) { this.money += money; if (money < 0) money = 0; }
+    public void ModifyMoney(int money) { this.money += money; if (money < 0) money = 0; }
 }
