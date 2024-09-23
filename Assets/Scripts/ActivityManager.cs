@@ -12,31 +12,31 @@ public class ActivityManager : MonoBehaviour
     Coroutine timerCoroutine;
     int actualActivityId;
     Player player;
-    WorldManager world;
+    WorldManager worldManager;
+    StageManager stageManager;
 
     public event Action OnActivityCompleted;
     public event Action OnActivityStarted;
     public event Action<TimeSpan> OnTimerUpdated;
 
-    private int workActivityId = 100;
-
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        world = GameObject.FindGameObjectWithTag("World").GetComponent<WorldManager>();
+        worldManager = GameObject.FindGameObjectWithTag("World").GetComponent<WorldManager>();
+        stageManager = GameObject.FindGameObjectWithTag("Stage").GetComponent<StageManager>();
         SO = GameObject.FindGameObjectWithTag("SO").GetComponent<ScriptableObjects>();
 
         listOfActivities = new Activity[SO.scriptableActivities.Length];
         activityUsages = new Dictionary<int, int>();
 
-        world.OnNewDay += ResetActivityUses;
+        LoadActivityUsages();
+
+        worldManager.OnNewDay += ResetActivityUses;
 
         for (int i = 0; i < SO.scriptableActivities.Length; i++)
         {
             listOfActivities[i] = new Activity(SO.scriptableActivities[i]);
         }
-
-        LoadActivityUsages();
     }
 
     IEnumerator ActivityTimer(int id = 0)
@@ -48,7 +48,7 @@ public class ActivityManager : MonoBehaviour
             timer = timer.Subtract(TimeSpan.FromSeconds(1));
         }
 
-        HandleActivityReward(id);
+        HandleActivityReward(id, false);
     }
 
     Activity? FindActivityById(int id)
@@ -63,49 +63,13 @@ public class ActivityManager : MonoBehaviour
         return null;
     }
 
-    //public void ExecuteActivity(int id)
-    //{
-    //    Activity? actualActivity = FindActivityById(id);
-
-    //    if (actualActivity != null)
-    //    {
-    //        if (activityUsages.ContainsKey(id) && activityUsages[id] >= actualActivity.Value.GetMaxUses())
-    //        {
-    //            Debug.Log("No more uses remaining for this activity today.");
-    //            return;
-    //        }
-
-    //        if (timerCoroutine != null)
-    //        {
-    //            StopCoroutine(timerCoroutine);
-    //        }
-
-    //        OnActivityStarted?.Invoke();
-    //        int duration = actualActivity.Value.GetActivityTime();
-    //        timer = TimeSpan.FromSeconds(duration);
-    //        timerCoroutine = StartCoroutine(ActivityTimer(id));
-    //        actualActivityId = id;
-
-    //        if (activityUsages.ContainsKey(id))
-    //        {
-    //            activityUsages[id]++;
-    //        }
-    //        else
-    //        {
-    //            activityUsages[id] = 1;
-    //        }
-
-    //        SaveActivityUsages();
-    //    }
-    //}
-
     public void ExecuteActivity(int id)
     {
         Activity? actualActivity = FindActivityById(id);
 
         if (actualActivity != null)
         {
-            if (activityUsages.ContainsKey(id) && activityUsages[id] >= actualActivity.Value.GetMaxUses())
+            if (activityUsages.ContainsKey(id) && activityUsages[id] >= actualActivity.Value.GetMaxUses() && activityUsages[id] != -1)
             {
                 Debug.Log("No more uses remaining for this activity today.");
                 return;
@@ -119,7 +83,8 @@ public class ActivityManager : MonoBehaviour
                     "You are already on an acitivity. Do you wish to cancel it?",
                     () =>
                     {
-                        CancelAndStartNewActivity(id);
+                        StopCoroutine(timerCoroutine);
+                        StartNewActivity(id);
                     },
                     () =>
                     {
@@ -134,18 +99,17 @@ public class ActivityManager : MonoBehaviour
         }
     }
 
-    void CancelAndStartNewActivity(int id)
-    {
-        StopCoroutine(timerCoroutine);
-        StartNewActivity(id);
-    }
-
     void StartNewActivity(int id)
     {
         Activity? actualActivity = FindActivityById(id);
 
         if (actualActivity != null)
         {
+            if (!StartNewSpecialActivity(id))
+            {
+                return;
+            }
+
             OnActivityStarted?.Invoke();
             int duration = actualActivity.Value.GetActivityTime();
             timer = TimeSpan.FromSeconds(duration);
@@ -165,73 +129,22 @@ public class ActivityManager : MonoBehaviour
         }
     }
 
-
-    public void ExecuteWork()
+    bool StartNewSpecialActivity(int id)
     {
-        Activity? actualActivity = FindActivityById(workActivityId);
-
-        if (actualActivity != null)
+        bool shouldContinue = false;
+        switch (id)
         {
-            if (activityUsages.ContainsKey(workActivityId) && activityUsages[workActivityId] >= actualActivity.Value.GetMaxUses())
-            {
-                Debug.Log("No more uses remaining for this activity today.");
-                return;
-            }
-
-            if (timerCoroutine != null)
-            {
-                HUDManager hudManager = GameObject.FindGameObjectWithTag("HUD").GetComponent<HUDManager>();
-                hudManager.ShowAlert(
-                    "Cancel activity",
-                    "You are already on an acitivity. Do you wish to cancel it?",
-                    () =>
-                    {
-                        CancelAndStartNewActivity(workActivityId);
-                    },
-                    () =>
-                    {
-                        Debug.Log("La actividad no fue cancelada.");
-                    }
-                );
-            }
-            else
-            {
-                StartNewActivity(workActivityId);
-            }
+            case 101: // Student_Study
+                if (stageManager.CanStudy())
+                {
+                    shouldContinue = true;
+                }
+                break;
+            default:
+                shouldContinue = true;
+                break;
         }
-
-        //Activity? actualActivity = FindActivityById(workActivityId);
-
-        //if (actualActivity != null)
-        //{
-        //    if (activityUsages.ContainsKey(workActivityId) && activityUsages[workActivityId] >= actualActivity.Value.GetMaxUses())
-        //    {
-        //        Debug.Log("No more uses remaining for this activity today.");
-        //        return;
-        //    }
-
-        //    if (timerCoroutine != null)
-        //    {
-        //        StopCoroutine(timerCoroutine);
-        //    }
-
-        //    OnActivityStarted?.Invoke();
-        //    int duration = actualActivity.Value.GetActivityTime();
-        //    timer = TimeSpan.FromSeconds(duration);
-        //    timerCoroutine = StartCoroutine(ActivityTimer(workActivityId));
-        //    actualActivityId = workActivityId;
-
-        //    if (activityUsages.ContainsKey(workActivityId))
-        //    {
-        //        activityUsages[workActivityId]++;
-        //    }
-        //    else
-        //    {
-        //        activityUsages[workActivityId] = 1;
-        //    }
-
-        //    SaveActivityUsages();
-        //}
+        return shouldContinue;
     }
 
     public void SkipActivity()
@@ -240,25 +153,47 @@ public class ActivityManager : MonoBehaviour
         {
             StopCoroutine(timerCoroutine);
             timerCoroutine = null;
-            HandleActivityReward(actualActivityId);
+            HandleActivityReward(actualActivityId, true);
         }
     }
 
-    void HandleActivityReward(int id)
+    void HandleActivityReward(int id, bool halved)
     {
         Activity? actualActivity = FindActivityById(id);
-        if (id == workActivityId && actualActivity != null)
-        {
-            player.ModifyMoneyWork();
-            OnActivityCompleted?.Invoke();
-            return;
-        }
-        
         if (actualActivity != null)
         {
-            player.ModifyPlayerStats(actualActivity.Value.GetStatNames(), actualActivity.Value.GetStatValues());
+            if (HandleSpecialActivityReward(id, halved)) { return; }
+        
+            if (halved)
+            {
+                player.ModifyPlayerStats(actualActivity.Value.GetStatNames(), actualActivity.Value.GetStatValuesHalved());
+            }
+            else
+            {
+                player.ModifyPlayerStats(actualActivity.Value.GetStatNames(), actualActivity.Value.GetStatValues());
+            }
+            OnActivityCompleted?.Invoke();
         }
-        OnActivityCompleted?.Invoke();
+    }
+
+    bool HandleSpecialActivityReward(int id, bool halved)
+    {
+        bool isSpecialActivity = true;
+        switch (id)
+        {
+            case 100: // Work
+                player.ModifyMoneyWork(halved);
+                OnActivityCompleted?.Invoke();
+                break;
+            case 101: // Student Stage Study
+                stageManager.GoStudy();
+                OnActivityCompleted?.Invoke();
+                break;
+            default:
+                isSpecialActivity = false;
+                break;
+        }
+        return isSpecialActivity;
     }
 
     void ResetActivityUses()

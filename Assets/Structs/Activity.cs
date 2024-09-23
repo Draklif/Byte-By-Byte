@@ -36,10 +36,24 @@ public struct Activity
     {
         return statNames;
     }
+
     public int[] GetStatValues()
     {
         return statValues;
     }
+
+    public int[] GetStatValuesHalved()
+    {
+        int[] halvedValues = new int[statValues.Length];
+
+        for (int i = 0; i < statValues.Length; i++)
+        {
+            halvedValues[i] = statValues[i] / 2;
+        }
+
+        return halvedValues;
+    }
+
 
     public int GetActivityId()
     {

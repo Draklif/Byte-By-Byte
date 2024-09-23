@@ -18,6 +18,13 @@ public class HUDManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI KnowledgeValue;
     [SerializeField] public TextMeshProUGUI MoneyValue;
 
+    [SerializeField] public TextMeshProUGUI ActualStage;
+    [SerializeField] public GameObject studentUI;
+    [SerializeField] public TextMeshProUGUI studentGrade;
+    [SerializeField] public TextMeshProUGUI studentNextExam;
+    [SerializeField] public GameObject workerUI;
+    [SerializeField] public GameObject entrepeneurUI;
+
     [SerializeField] public GameObject activityUI;
 
     [SerializeField] public GameObject debugPanel;
@@ -41,6 +48,7 @@ public class HUDManager : MonoBehaviour
     private WorldManager worldManager;
     private ActivityManager activityManager;
     private ShopManager shopManager;
+    private StageManager stageManager;
     private Player player;
     private ScriptableObjects SO;
 
@@ -52,6 +60,7 @@ public class HUDManager : MonoBehaviour
         worldManager = GameObject.FindGameObjectWithTag("World").GetComponent<WorldManager>();
         activityManager = GameObject.FindGameObjectWithTag("Activity").GetComponent<ActivityManager>();
         shopManager = GameObject.FindGameObjectWithTag("Shop").GetComponent<ShopManager>();
+        stageManager = GameObject.FindGameObjectWithTag("Stage").GetComponent<StageManager>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         SO = GameObject.FindGameObjectWithTag("SO").GetComponent<ScriptableObjects>();
 
@@ -62,6 +71,7 @@ public class HUDManager : MonoBehaviour
         activityManager.OnActivityStarted += UpdateActivityUIVisibility;
         activityManager.OnTimerUpdated += UpdateRemainingTimeUI;
         shopManager.OnShopUpdated += UpdateShopUI;
+        stageManager.OnGradeUpdated += UpdateStageStudentUI;
         player.OnInventoryUpdated += UpdateInventoryUI;
 
         // Inicializar el UI basado en los estados actuales
@@ -86,6 +96,30 @@ public class HUDManager : MonoBehaviour
     void UpdateDayOfWeekUI()
     {
         ActualDayOfWeek.text = worldManager.GetActualDay().ToString();
+    }
+
+    void UpdateStageUI()
+    {
+        Stage actualStage = player.GetPlayerStats().GetStage();
+        ActualStage.text = actualStage.ToString();
+        switch (actualStage)
+        {
+            case Stage.Student:
+                studentUI.SetActive(true);
+                break;
+            case Stage.Worker:
+                workerUI.SetActive(true);
+                break;
+            case Stage.Entrepeneur:
+                entrepeneurUI.SetActive(true);
+                break;
+        }
+    }
+
+    void UpdateStageStudentUI()
+    {
+        string actualGrade = stageManager.GetGrade().ToString();
+        studentGrade.text = actualGrade + " / 50";
     }
 
     void UpdateActivityUIVisibility()
@@ -175,6 +209,7 @@ public class HUDManager : MonoBehaviour
         UpdateDayOfWeekUI();
         UpdateShopUI();
         UpdateInventoryUI();
+        UpdateStageUI();
         LoadPlanner();
     }
 

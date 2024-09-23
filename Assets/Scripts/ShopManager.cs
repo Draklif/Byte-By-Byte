@@ -25,20 +25,9 @@ public class ShopManager : MonoBehaviour
             possibleShopItems[i] = new Item(SO.scriptableShopItems[i]);
         }
 
-        if (world.isNewDay)
-        {
-            OnDailyCheck();
-        }
-        else
-        {
-            LoadShopFromSavedIds();
-        }
-    }
+        LoadShopFromSavedIds();
 
-    void OnDailyCheck()
-    {
-        GenerateShop();
-        OnShopUpdated?.Invoke();
+        world.OnNewDay += GenerateShop;
     }
 
     void GenerateShop()
@@ -62,6 +51,7 @@ public class ShopManager : MonoBehaviour
             shopItemIds.Add(randomItem.GetItemId());
         }
         SaveShopIds(shopItemIds);
+        OnShopUpdated?.Invoke();
     }
 
     void GenerateShopByIds(string[] ids)
@@ -70,6 +60,7 @@ public class ShopManager : MonoBehaviour
 
         if (ids[0].Equals(""))
         {
+            OnShopUpdated?.Invoke();
             return;
         }
 
@@ -117,6 +108,7 @@ public class ShopManager : MonoBehaviour
     {
         return player.GetMoney() >= item.GetPrice() && player.GetPlayerStats().GetInventory().GetSize() < 3;
     }
+
     void SaveCurrentShopState()
     {
         ArrayList remainingItemIds = new ArrayList();
@@ -145,10 +137,6 @@ public class ShopManager : MonoBehaviour
             string[] ids = savedIds.Split(',');
 
             GenerateShopByIds(ids);
-        }
-        else
-        {
-            GenerateShop();
         }
     }
 

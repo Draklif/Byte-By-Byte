@@ -7,4 +7,5 @@ public class ScriptableObjects : MonoBehaviour
     [SerializeField] public ActivityScriptableObject[] scriptableActivities;
     [SerializeField] public ItemScriptableObject[] scriptableShopItems;
     [SerializeField] public EffectScriptableObject[] scriptableEffects;
+    [SerializeField] public JobScriptableObject[] scriptableJobs;
 }

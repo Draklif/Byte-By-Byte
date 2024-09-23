@@ -9,6 +9,7 @@ TagManager:
   - SO
   - Shop
   - Activity
+  - Stage
   layers:
   - Default
   - TransparentFX

@@ -25,12 +25,12 @@ public class Player : MonoBehaviour
         itemUsages = new Dictionary<int, int>();
         activeEffects = new List<SpecialEffects>();
 
-        world.OnNewDay += ResetItemUses;
-
-        //PlayerPrefs.DeleteKey("Player_Inventory");
         LoadPlayerStats();
         LoadInventory();
         LoadItemUsages();
+        LoadSalary();
+
+        world.OnNewDay += ResetItemUses; 
     }
 
     void Update()
@@ -133,16 +133,36 @@ public class Player : MonoBehaviour
         return affectsDecrese;
     }
 
+    public void SetSalary(float baseSalary, float positionMultiplier, float knowledgeMultiplier)
+    {
+        this.baseSalary = baseSalary;
+        this.positionMultiplier = positionMultiplier;
+        this.knowledgeMultiplier = knowledgeMultiplier;
+        SaveSalary();
+    }
+
+    public float GetBaseSalary() { return baseSalary; }
+    public float GetPositionMultiplier() { return positionMultiplier; }
+    public float GetKnowledgeMultiplier() { return knowledgeMultiplier; }
+
     public void ModifyMoney(int value)
     {
         this.playerStats.ModifyMoney(value);
         SavePlayerStats();
     }
 
-    public void ModifyMoneyWork()
+    public void ModifyMoneyWork(bool halved)
     {
         float money = (baseSalary * positionMultiplier) +(playerStats.GetPlayerMeters().GetKnowledge() * knowledgeMultiplier) + UnityEngine.Random.Range(0.8f, 1.2f);
-        this.playerStats.ModifyMoney((int)money);
+
+        if (halved)
+        {
+            this.playerStats.ModifyMoney((int)money / 2);
+        }
+        else
+        {
+            this.playerStats.ModifyMoney((int)money);
+        }
         SavePlayerStats();
     }
 
@@ -309,6 +329,21 @@ public class Player : MonoBehaviour
         Stage stage = (Stage)Enum.Parse(typeof(Stage), PlayerPrefs.GetString("Player_Stage", Stage.Student.ToString()));
 
         playerStats = new PlayerStats(meters, new Inventory(new ArrayList()), stage, money);
+    }
+
+    void SaveSalary()
+    {
+        PlayerPrefs.SetFloat("Player_BaseSalary", baseSalary);
+        PlayerPrefs.SetFloat("Player_PositionMult", positionMultiplier);
+        PlayerPrefs.SetFloat("Player_KnowledgeMult", knowledgeMultiplier);
+        PlayerPrefs.Save();
+    }
+
+    void LoadSalary()
+    {
+        baseSalary = PlayerPrefs.GetFloat("Player_BaseSalary", 10);
+        positionMultiplier = PlayerPrefs.GetFloat("Player_PositionMult", 1);
+        knowledgeMultiplier = PlayerPrefs.GetFloat("Player_KnowledgeMult", 0.5f);
     }
 
     void SaveSpecialEffects()

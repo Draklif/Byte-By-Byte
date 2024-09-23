@@ -43,6 +43,7 @@ public class WorldManager : MonoBehaviour
             actualDay = currentDay;
             previousDay = actualDay;
             OnNewDay?.Invoke();
+            CheckDaily();
         }
 
         if (currentTime != previousTime)
@@ -79,29 +80,6 @@ public class WorldManager : MonoBehaviour
             return Time.Evening;
         else
             return Time.Midnight;
-    }
-
-
-    public void CheckTime()
-    {
-        int hour = actualPlayedDate.Hour;
-
-        if (hour >= 6 && hour < 12)
-        {
-            actualTime = Time.Morning;
-        }
-        else if (hour >= 12 && hour < 18)
-        {
-            actualTime = Time.Afternoon;
-        }
-        else if (hour >= 18 && hour < 24)
-        {
-            actualTime = Time.Evening;
-        }
-        else
-        {
-            actualTime = Time.Midnight;
-        }
     }
 
     void SaveFirstDate()
@@ -149,9 +127,6 @@ public class WorldManager : MonoBehaviour
 
     void GetElapsedTime()
     {
-        firstPlayedDate = DateTime.Now.AddDays(-20);
-        lastPlayedDate = DateTime.Now.AddDays(-2);
-
         elapsedTimeLastPlayed = actualPlayedDate - lastPlayedDate;
         elapsedTimeFirstPlayed = actualPlayedDate - firstPlayedDate;
 
@@ -161,6 +136,19 @@ public class WorldManager : MonoBehaviour
 
     void CheckFlags()
     {
+        if (firstPlayedDate.Date == actualPlayedDate.Date)
+        {
+            isNewDay = true;
+            isNewWeek = true;
+            isNewMonth = true;
+
+            OnNewDay?.Invoke();
+            OnNewWeek?.Invoke();
+            OnNewMonth?.Invoke();
+
+            return;
+        }
+
         bool newDay = (elapsedTimeLastPlayed.Days >= 1 || actualPlayedDate.Day != lastPlayedDate.Day);
         bool newWeek = (elapsedTimeLastPlayed.Days >= 7 || actualPlayedDate.DayOfWeek == DayOfWeek.Monday && lastPlayedDate.DayOfWeek != DayOfWeek.Monday);
         bool newMonth = (elapsedTimeLastPlayed.Days >= 30 || actualPlayedDate.Month != lastPlayedDate.Month || actualPlayedDate.Day == 1);
