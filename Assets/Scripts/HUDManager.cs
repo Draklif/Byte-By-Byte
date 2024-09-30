@@ -210,6 +210,7 @@ public class HUDManager : MonoBehaviour
         UpdateShopUI();
         UpdateInventoryUI();
         UpdateStageUI();
+        UpdateStageStudentUI();
         LoadPlanner();
     }
 
@@ -310,5 +311,74 @@ public class HUDManager : MonoBehaviour
 
         alertPanel.SetActive(true);
     }
+
+    public void PrintPlayerPrefs()
+    {
+        // ---- STRING PREFS ----
+        Debug.Log("----- STRING PREFS -----");
+        Debug.Log("Shop_ItemIds: " + PlayerPrefs.GetString("Shop_ItemIds", "Not found"));
+        Debug.Log("Player_Inventory: " + PlayerPrefs.GetString("Player_Inventory", "Not found"));
+        Debug.Log("Player_Stage: " + PlayerPrefs.GetString("Player_Stage", "Not found"));
+        Debug.Log("Date_FirstPlayed: " + PlayerPrefs.GetString("Date_FirstPlayed", "Not found"));
+        Debug.Log("Date_LastPlayed: " + PlayerPrefs.GetString("Date_LastPlayed", "Not found"));
+        Debug.Log("Date_LastCheck: " + PlayerPrefs.GetString("Date_LastCheck", "Not found"));
+
+        // Para Effect_*, buscamos todas las claves que empiezan con 'Effect_'
+        foreach (var key in PlayerPrefsKeysStartingWith("Effect_"))
+        {
+            Debug.Log(key + ": " + PlayerPrefs.GetString(key, "Not found"));
+        }
+
+        // ---- INT PREFS ----
+        Debug.Log("----- INT PREFS -----");
+        foreach (var key in PlayerPrefsKeysStartingWith("Item_"))
+        {
+            Debug.Log(key + ": " + PlayerPrefs.GetInt(key, -1));
+        }
+        foreach (var key in PlayerPrefsKeysStartingWith("Activity_"))
+        {
+            Debug.Log(key + ": " + PlayerPrefs.GetInt(key, -1));
+        }
+        Debug.Log("Player_Happiness: " + PlayerPrefs.GetInt("Player_Happiness", -1));
+        Debug.Log("Player_Hunger: " + PlayerPrefs.GetInt("Player_Hunger", -1));
+        Debug.Log("Player_Stress: " + PlayerPrefs.GetInt("Player_Stress", -1));
+        Debug.Log("Player_Weight: " + PlayerPrefs.GetInt("Player_Weight", -1));
+        Debug.Log("Player_Knowledge: " + PlayerPrefs.GetInt("Player_Knowledge", -1));
+        Debug.Log("Player_Money: " + PlayerPrefs.GetInt("Player_Money", -1));
+        Debug.Log("Effects_Count: " + PlayerPrefs.GetInt("Effects_Count", -1));
+        Debug.Log("Progression_Grade: " + PlayerPrefs.GetInt("Progression_Grade", -1));
+        Debug.Log("Progression_Assistance: " + PlayerPrefs.GetInt("Progression_Assistance", -1));
+        Debug.Log("Progression_CanStudy: " + PlayerPrefs.GetInt("Progression_CanStudy", -1));
+
+        // ---- FLOAT PREFS ----
+        Debug.Log("----- FLOAT PREFS -----");
+        foreach (var key in PlayerPrefsKeysStartingWith("Effects_"))
+        {
+            Debug.Log(key + ": " + PlayerPrefs.GetFloat(key + "_RemainingTime", -1f));
+        }
+        Debug.Log("Player_BaseSalary: " + PlayerPrefs.GetFloat("Player_BaseSalary", -1f));
+        Debug.Log("Player_PositionMult: " + PlayerPrefs.GetFloat("Player_PositionMult", -1f));
+        Debug.Log("Player_KnowledgeMult: " + PlayerPrefs.GetFloat("Player_KnowledgeMult", -1f));
+    }
+
+    // Método auxiliar para encontrar claves con un prefijo determinado y un rango numérico
+    List<string> PlayerPrefsKeysStartingWith(string prefix, int count = 20)
+    {
+        List<string> matchingKeys = new List<string>();
+
+        for (int i = 1; i <= count; i++)
+        {
+            string key = prefix + i;
+
+            // Verificar si la clave existe en PlayerPrefs antes de agregarla
+            if (PlayerPrefs.HasKey(key))
+            {
+                matchingKeys.Add(key);
+            }
+        }
+
+        return matchingKeys;
+    }
+
 
 }

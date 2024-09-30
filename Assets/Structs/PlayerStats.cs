@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine;
 
 public struct PlayerStats
 {
@@ -30,6 +31,13 @@ public struct PlayerStats
                 meters.AddHappiness(value);
                 break;
             case Stat.Hunger:
+                float currentHunger = meters.GetHunger();
+                if (meters.GetHunger() >= 80)
+                {
+                    float weightGain = Mathf.Clamp(10 * Mathf.Pow(value / 70, 2), 0.5f, 10f);
+
+                    meters.AddWeight(Mathf.FloorToInt(weightGain));
+                }
                 meters.AddHunger(value);
                 break;
             case Stat.Stress:

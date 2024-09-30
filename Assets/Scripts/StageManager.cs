@@ -142,7 +142,7 @@ public class StageManager : MonoBehaviour
 
     void SaveAssistance()
     {
-        PlayerPrefs.SetInt("Progression_Assistance", Grade);
+        PlayerPrefs.SetInt("Progression_Assistance", WeeklyAssistance);
         PlayerPrefs.Save();
     }
 

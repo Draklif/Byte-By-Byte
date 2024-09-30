@@ -37,6 +37,15 @@ public class ActivityManager : MonoBehaviour
         {
             listOfActivities[i] = new Activity(SO.scriptableActivities[i]);
         }
+
+        LoadCurrentActivity();
+    }
+
+    IEnumerator WaitForHUDAndStartActivity()
+    {
+        yield return new WaitForSeconds(1);
+
+        OnActivityStarted?.Invoke();
     }
 
     IEnumerator ActivityTimer(int id = 0)
@@ -44,9 +53,18 @@ public class ActivityManager : MonoBehaviour
         while (timer.TotalSeconds > 0)
         {
             OnTimerUpdated?.Invoke(timer);
+
+            string activityData = id + ":" + timer.TotalSeconds;
+            PlayerPrefs.SetString("Activity_Current", activityData);
+            PlayerPrefs.Save();
+
             yield return new WaitForSeconds(1);
             timer = timer.Subtract(TimeSpan.FromSeconds(1));
         }
+
+        PlayerPrefs.DeleteKey("Activity_Current");
+        PlayerPrefs.DeleteKey("Activity_StartDate");
+        PlayerPrefs.Save();
 
         HandleActivityReward(id, false);
     }
@@ -69,7 +87,7 @@ public class ActivityManager : MonoBehaviour
 
         if (actualActivity != null)
         {
-            if (activityUsages.ContainsKey(id) && activityUsages[id] >= actualActivity.Value.GetMaxUses() && activityUsages[id] != -1)
+            if (activityUsages.ContainsKey(id) && activityUsages[id] >= actualActivity.Value.GetMaxUses() && actualActivity.Value.GetMaxUses() != -1)
             {
                 Debug.Log("No more uses remaining for this activity today.");
                 return;
@@ -116,6 +134,9 @@ public class ActivityManager : MonoBehaviour
             timerCoroutine = StartCoroutine(ActivityTimer(id));
             actualActivityId = id;
 
+            PlayerPrefs.SetString("Activity_StartDate", DateTime.Now.ToString());
+            PlayerPrefs.Save();
+
             if (activityUsages.ContainsKey(id))
             {
                 activityUsages[id]++;
@@ -136,6 +157,12 @@ public class ActivityManager : MonoBehaviour
         {
             case 101: // Student_Study
                 if (stageManager.CanStudy())
+                {
+                    shouldContinue = true;
+                }
+                break;
+            case 102: // Sleep
+                if (player.CanSleep())
                 {
                     shouldContinue = true;
                 }
@@ -172,6 +199,11 @@ public class ActivityManager : MonoBehaviour
             {
                 player.ModifyPlayerStats(actualActivity.Value.GetStatNames(), actualActivity.Value.GetStatValues());
             }
+
+            PlayerPrefs.DeleteKey("Activity_Current");
+            PlayerPrefs.DeleteKey("Activity_StartDate");
+            PlayerPrefs.Save();
+
             OnActivityCompleted?.Invoke();
         }
     }
@@ -189,39 +221,103 @@ public class ActivityManager : MonoBehaviour
                 stageManager.GoStudy();
                 OnActivityCompleted?.Invoke();
                 break;
+            case 102: // Sleep
+                player.Sleep(halved);
+                OnActivityCompleted?.Invoke();
+                break;
             default:
                 isSpecialActivity = false;
                 break;
         }
+
+        PlayerPrefs.DeleteKey("Activity_Current");
+        PlayerPrefs.Save();
+
         return isSpecialActivity;
     }
 
     void ResetActivityUses()
     {
         activityUsages.Clear();
-
-        foreach (Activity activity in listOfActivities)
-        {
-            PlayerPrefs.DeleteKey("Activity_" + activity.GetActivityId());
-        }
+        PlayerPrefs.DeleteKey("Activity_Usages");
         PlayerPrefs.Save();
     }
 
     void LoadActivityUsages()
     {
-        foreach (Activity activity in listOfActivities)
+        string activityData = PlayerPrefs.GetString("Activity_Usages", "");
+        if (!string.IsNullOrEmpty(activityData))
         {
-            int uses = PlayerPrefs.GetInt("Activity_" + activity.GetActivityId(), 0);
-            activityUsages[activity.GetActivityId()] = uses;
+            string[] activityPairs = activityData.Split(',');
+
+            foreach (string pair in activityPairs)
+            {
+                string[] activityInfo = pair.Split(':');
+                if (activityInfo.Length == 2)
+                {
+                    int activityId = int.Parse(activityInfo[0]);
+                    int uses = int.Parse(activityInfo[1]);
+
+                    activityUsages[activityId] = uses;
+                }
+            }
+        }
+        else
+        {
+            foreach (Activity activity in listOfActivities)
+            {
+                activityUsages[activity.GetActivityId()] = 0;
+            }
         }
     }
 
     void SaveActivityUsages()
     {
+        List<string> activityDataList = new List<string>();
+
         foreach (var usage in activityUsages)
         {
-            PlayerPrefs.SetInt("Activity_" + usage.Key, usage.Value);
+            activityDataList.Add(usage.Key + ":" + usage.Value);
         }
+
+        string activityData = string.Join(",", activityDataList);
+        PlayerPrefs.SetString("Activity_Usages", activityData);
         PlayerPrefs.Save();
     }
+
+    void LoadCurrentActivity()
+    {
+        if (PlayerPrefs.HasKey("Activity_Current"))
+        {
+            string activityData = PlayerPrefs.GetString("Activity_Current");
+            string[] dataParts = activityData.Split(':');
+
+            if (dataParts.Length == 2)
+            {
+                int currentActivityId = int.Parse(dataParts[0]);
+                double remainingTime = double.Parse(dataParts[1]);
+
+                if (PlayerPrefs.HasKey("Activity_StartDate"))
+                {
+                    DateTime startDate = DateTime.Parse(PlayerPrefs.GetString("Activity_StartDate"));
+                    TimeSpan timePassed = DateTime.Now - startDate;
+
+                    remainingTime -= timePassed.TotalSeconds;
+
+                    if (remainingTime <= 0)
+                    {
+                        HandleActivityReward(currentActivityId, false);
+                        return;
+                    }
+                }
+
+                timer = TimeSpan.FromSeconds(remainingTime);
+
+                timerCoroutine = StartCoroutine(ActivityTimer(currentActivityId));
+                actualActivityId = currentActivityId;
+                StartCoroutine(WaitForHUDAndStartActivity());
+            }
+        }
+    }
+
 }

@@ -29,8 +29,10 @@ public class Player : MonoBehaviour
         LoadInventory();
         LoadItemUsages();
         LoadSalary();
+        SavePlayerStats();
 
-        world.OnNewDay += ResetItemUses; 
+        world.OnNewDay += ResetItemUses;
+        world.OnNewDay += ResetSleep;
     }
 
     void Update()
@@ -118,6 +120,7 @@ public class Player : MonoBehaviour
 
         return affectsIncrease;
     }
+
     bool GetStatAffectsDecrease(Stat stat)
     {
         bool affectsDecrese = false;
@@ -164,6 +167,93 @@ public class Player : MonoBehaviour
             this.playerStats.ModifyMoney((int)money);
         }
         SavePlayerStats();
+    }
+
+    public bool CanSleep()
+    {
+        string sleepString = PlayerPrefs.GetString("Player_SleepTime", "");
+
+        DateTime lastSleepTime;
+        if (!string.IsNullOrEmpty(sleepString))
+        {
+            lastSleepTime = DateTime.Parse(sleepString);
+        }
+        else
+        {
+            lastSleepTime = DateTime.MinValue;
+        }
+
+        DateTime currentTime = DateTime.Now;
+
+        // Verificar si han pasado al menos 2 horas desde el último sueño
+        TimeSpan timeSinceLastSleep = currentTime - lastSleepTime;
+        if (timeSinceLastSleep.TotalHours < 2)
+        {
+            return false;
+        }
+
+        // Verificar si ha dormido más de 6 horas en el día
+        int sleepHoursToday = PlayerPrefs.GetInt("Player_SleepHoursToday", 0);
+        if (sleepHoursToday >= 6)
+        {
+            return false;
+        }
+
+        // Verificar si no tiene hambre
+        if (playerStats.GetPlayerMeters().GetHunger() < 0)
+        {
+            return false;
+        }
+
+        PlayerPrefs.SetString("Player_SleepTime", DateTime.Now.ToString());
+        PlayerPrefs.Save();
+        return true;
+    }
+
+    void ResetSleep()
+    {
+        PlayerPrefs.SetInt("Player_SleepHoursToday", 0);
+        PlayerPrefs.Save();
+    }
+
+    public void Sleep(bool interrupted)
+    {
+        string sleepString = PlayerPrefs.GetString("Player_SleepTime", "");
+
+        DateTime lastSleepTime;
+        if (!string.IsNullOrEmpty(sleepString))
+        {
+            lastSleepTime = DateTime.Parse(sleepString);
+        }
+        else
+        {
+            lastSleepTime = DateTime.MinValue;
+        }
+
+        DateTime currentTime = DateTime.Now;
+        TimeSpan timeSlept = currentTime - lastSleepTime;
+
+        int sleepHoursToday = PlayerPrefs.GetInt("Player_SleepHoursToday", 0);
+        sleepHoursToday += (int)timeSlept.TotalHours;
+        PlayerPrefs.SetInt("Player_SleepHoursToday", sleepHoursToday);
+        PlayerPrefs.Save();
+
+        if (timeSlept.TotalHours >= 4)
+        {
+            ModifyPlayerStats(new Stat[] { Stat.Hunger }, new int[] { -10 });
+        }
+
+        if (interrupted)
+        {
+            return;
+        }
+
+        if (playerStats.GetPlayerMeters().GetHunger() > 30)
+        {
+            ModifyPlayerStats(new Stat[] { Stat.Happiness }, new int[] { 10 });
+        }
+
+        ModifyPlayerStats(new Stat[] { Stat.Happiness, Stat.Stress, Stat.Hunger }, new int[] { 10, -30, -10 });
     }
 
     public void AddItem(Item item)
