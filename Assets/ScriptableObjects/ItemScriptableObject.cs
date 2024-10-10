@@ -13,4 +13,5 @@ public class ItemScriptableObject : ScriptableObject
     public int[] statValues;
     public Day[] availableDays;
     public Stat[] statNames;
+    public int effectId;
 }

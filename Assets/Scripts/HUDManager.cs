@@ -322,23 +322,15 @@ public class HUDManager : MonoBehaviour
         Debug.Log("Date_FirstPlayed: " + PlayerPrefs.GetString("Date_FirstPlayed", "Not found"));
         Debug.Log("Date_LastPlayed: " + PlayerPrefs.GetString("Date_LastPlayed", "Not found"));
         Debug.Log("Date_LastCheck: " + PlayerPrefs.GetString("Date_LastCheck", "Not found"));
-
-        // Para Effect_*, buscamos todas las claves que empiezan con 'Effect_'
-        foreach (var key in PlayerPrefsKeysStartingWith("Effect_"))
-        {
-            Debug.Log(key + ": " + PlayerPrefs.GetString(key, "Not found"));
-        }
+        Debug.Log("Player_SleepTime: " + PlayerPrefs.GetString("Player_SleepTime", "Not found"));
+        Debug.Log("Player_SleepHoursToday: " + PlayerPrefs.GetString("Player_SleepHoursToday", "Not found"));
+        Debug.Log("Activity_Usages: " + PlayerPrefs.GetString("Activity_Usages", "Not found"));
+        Debug.Log("Activity_Current: " + PlayerPrefs.GetString("Activity_Current", "Not found"));
+        Debug.Log("Activity_StartDate: " + PlayerPrefs.GetString("Activity_StartDate", "Not found"));
+        Debug.Log("Item_Usages: " + PlayerPrefs.GetString("Item_Usages", "Not found"));
 
         // ---- INT PREFS ----
         Debug.Log("----- INT PREFS -----");
-        foreach (var key in PlayerPrefsKeysStartingWith("Item_"))
-        {
-            Debug.Log(key + ": " + PlayerPrefs.GetInt(key, -1));
-        }
-        foreach (var key in PlayerPrefsKeysStartingWith("Activity_"))
-        {
-            Debug.Log(key + ": " + PlayerPrefs.GetInt(key, -1));
-        }
         Debug.Log("Player_Happiness: " + PlayerPrefs.GetInt("Player_Happiness", -1));
         Debug.Log("Player_Hunger: " + PlayerPrefs.GetInt("Player_Hunger", -1));
         Debug.Log("Player_Stress: " + PlayerPrefs.GetInt("Player_Stress", -1));
@@ -352,33 +344,8 @@ public class HUDManager : MonoBehaviour
 
         // ---- FLOAT PREFS ----
         Debug.Log("----- FLOAT PREFS -----");
-        foreach (var key in PlayerPrefsKeysStartingWith("Effects_"))
-        {
-            Debug.Log(key + ": " + PlayerPrefs.GetFloat(key + "_RemainingTime", -1f));
-        }
         Debug.Log("Player_BaseSalary: " + PlayerPrefs.GetFloat("Player_BaseSalary", -1f));
         Debug.Log("Player_PositionMult: " + PlayerPrefs.GetFloat("Player_PositionMult", -1f));
         Debug.Log("Player_KnowledgeMult: " + PlayerPrefs.GetFloat("Player_KnowledgeMult", -1f));
     }
-
-    // Método auxiliar para encontrar claves con un prefijo determinado y un rango numérico
-    List<string> PlayerPrefsKeysStartingWith(string prefix, int count = 20)
-    {
-        List<string> matchingKeys = new List<string>();
-
-        for (int i = 1; i <= count; i++)
-        {
-            string key = prefix + i;
-
-            // Verificar si la clave existe en PlayerPrefs antes de agregarla
-            if (PlayerPrefs.HasKey(key))
-            {
-                matchingKeys.Add(key);
-            }
-        }
-
-        return matchingKeys;
-    }
-
-
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Player : MonoBehaviour
 {
@@ -45,9 +46,15 @@ public class Player : MonoBehaviour
         hudManager.MoneyValue.text = playerStats.GetMoney().ToString();
     }
 
-    public void AddSpecialEffect(SpecialEffects effect)
+    public void AddSpecialEffect(int effectId)
     {
-        activeEffects.Add(effect);
+        foreach (EffectScriptableObject specialEffect in SO.scriptableEffects)
+        {
+            if (effectId == specialEffect.effectId)
+            {
+                activeEffects.Add(new SpecialEffects(specialEffect));
+            }
+        }
     }
 
     public PlayerStats GetPlayerStats()
@@ -279,6 +286,12 @@ public class Player : MonoBehaviour
             return;
         }
 
+        int itemEffectId = item.GetEffectId();
+        if (itemEffectId > 0)
+        {
+            AddSpecialEffect(itemEffectId);
+        }
+
         if (itemUsages.ContainsKey(itemId))
         {
             itemUsages[itemId]++;
@@ -362,13 +375,7 @@ public class Player : MonoBehaviour
     void ResetItemUses()
     {
         itemUsages.Clear();
-
-        Inventory inventory = playerStats.GetInventory();
-        Item[] items = inventory.GetItems();
-        foreach (Item item in items)
-        {
-            PlayerPrefs.DeleteKey("Item_" + item.GetItemId());
-        }
+        PlayerPrefs.DeleteKey("Item_Usages");
         PlayerPrefs.Save();
     }
 
@@ -376,19 +383,45 @@ public class Player : MonoBehaviour
     {
         Inventory inventory = playerStats.GetInventory();
         Item[] items = inventory.GetItems();
-        foreach (Item item in items)
+
+        string itemData = PlayerPrefs.GetString("Item_Usages", "");
+
+        if (!string.IsNullOrEmpty(itemData))
         {
-            int uses = PlayerPrefs.GetInt("Item_" + item.GetItemId(), 0);
-            itemUsages[item.GetItemId()] = uses;
+            string[] itemPairs = itemData.Split(',');
+
+            foreach (string pair in itemPairs)
+            {
+                string[] itemInfo = pair.Split(':');
+                if (itemInfo.Length == 2)
+                {
+                    int itemId = int.Parse(itemInfo[0]);
+                    int uses = int.Parse(itemInfo[1]);
+
+                    itemUsages[itemId] = uses;
+                }
+            }
+        }
+        else
+        {
+            foreach (Item item in items)
+            {
+                itemUsages[item.GetItemId()] = 0;
+            }
         }
     }
 
     void SaveItemUsages()
     {
+        List<string> itemDataList = new List<string>();
+
         foreach (var usage in itemUsages)
         {
-            PlayerPrefs.SetInt("Item_" + usage.Key, usage.Value);
+            itemDataList.Add(usage.Key + ":" + usage.Value);
         }
+
+        string itemData = string.Join(",", itemDataList);
+        PlayerPrefs.SetString("Item_Usages", itemData);
         PlayerPrefs.Save();
     }
 

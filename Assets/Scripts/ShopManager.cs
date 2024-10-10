@@ -115,7 +115,10 @@ public class ShopManager : MonoBehaviour
 
         foreach (Item item in shopInventory.GetItems())
         {
-            remainingItemIds.Add(item.GetItemId());
+            for (int i = 0; i < item.GetQuantity(); i++)
+            {
+                remainingItemIds.Add(item.GetItemId());
+            }
         }
 
         SaveShopIds(remainingItemIds);
@@ -137,6 +140,10 @@ public class ShopManager : MonoBehaviour
             string[] ids = savedIds.Split(',');
 
             GenerateShopByIds(ids);
+        }
+        else
+        {
+            GenerateShop();
         }
     }
 

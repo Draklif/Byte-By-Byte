@@ -15,9 +15,11 @@ MonoBehaviour:
   itemId: 3
   itemName: sdad
   itemDesc: 233
+  itemUses: 0
   quantity: 1
   price: 20
   rarity: 5
   statValues: 05000000
-  availableDays: 000000000100000002000000
+  availableDays: 00000000010000000200000004000000
   statNames: 01000000
+  effectId: 0

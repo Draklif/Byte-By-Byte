@@ -12,8 +12,9 @@ public struct Item
     int[] statValues;
     Day[] availableDays;
     Stat[] statNames;
+    int effectId;
 
-    public Item(int itemId, string itemName, string itemDesc, int itemUses, int quantity, int[] statValues, int price, int rarity, Day[] availableDays, Stat[] statNames)
+    public Item(int itemId, string itemName, string itemDesc, int itemUses, int quantity, int[] statValues, int price, int rarity, Day[] availableDays, Stat[] statNames, int effectId)
     {
         this.itemId = itemId;
         this.itemName = itemName;
@@ -25,6 +26,7 @@ public struct Item
         this.statValues = statValues;
         this.availableDays = availableDays;
         this.statNames = statNames;
+        this.effectId = effectId;
     }
 
     public Item(ItemScriptableObject item)
@@ -39,6 +41,7 @@ public struct Item
         this.statValues = item.statValues;
         this.availableDays = item.availableDays;
         this.statNames = item.statNames;
+        this.effectId = item.effectId;
     }
 
     public bool DecreaseQuantity(int value)
@@ -51,6 +54,11 @@ public struct Item
     public void IncreaseQuantity(int value)
     {
         quantity += value;
+    }
+
+    public int GetEffectId()
+    {
+        return effectId;
     }
 
     public int GetItemId()
