@@ -2,53 +2,103 @@
     "articles" : [
         {
             "id" : 1,
-            "name" : "Lanzamiento de Byte By Byte: The Animation",
-            "desc_short" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est.",
-            "date" : "26 de Agosto 2024",
+            "name" : "Byte By Byte: Daily Byte v0.7.1b",
+            "desc_short" : "¡Finalmente aquí! Nuestra primera beta pública de Byte By Byte: Daily Byte. Esta versión es nuestra primera versión pública y, haciendo click en el enlace, podrás ir a la página de descarga. ¡Estamos ansiosos de oír tus primeras impresiones!",
+            "date" : "28-11-2024",
             "author" : "Admin",
-            "tag" : "Comic",
-            "image" : "Default.png",
-            "desc_long" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est. Donec bibendum felis a massa blandit, dignissim imperdiet dolor sodales. Praesent facilisis mauris eget lorem laoreet ultricies. Pellentesque sed elit eu massa lacinia commodo non et felis. Aenean diam turpis, volutpat id libero maximus, fermentum venenatis leo.<br><br>Vestibulum risus dolor, malesuada eget pulvinar non, vulputate in ligula. Fusce vitae magna dictum, laoreet mi sit amet, accumsan massa. Nulla tincidunt augue quis nisl lacinia pulvinar. In augue quam, vulputate sit amet dignissim a, posuere eu nulla. Etiam luctus magna sem, sed sodales magna laoreet sit amet. Praesent placerat volutpat sem at pretium. Donec lacinia eleifend gravida.<br><br>Curabitur condimentum tortor et erat consequat aliquet. Integer efficitur varius vulputate. Cras sem purus, laoreet eget vehicula eu, finibus ut justo. Nunc porttitor efficitur leo, vitae porttitor velit condimentum interdum. Sed ut elit ante. Sed vehicula ex mauris, ac iaculis elit vehicula et. Donec bibendum egestas porttitor. Suspendisse vulputate elit in erat scelerisque, et tristique urna tincidunt. Duis placerat gravida ex et varius. Curabitur aliquet est a ornare sollicitudin. Aenean vel malesuada ipsum. Cras sollicitudin malesuada massa in convallis. Integer mi sapien, maximus eu orci quis, bibendum placerat ipsum. Etiam sit amet facilisis metus, a luctus urna. Praesent gravida mattis purus suscipit porttitor.<br><br>Suspendisse vel vehicula ligula. Nullam aliquam eu libero vitae rhoncus. Sed dignissim egestas nibh, non vulputate neque iaculis ut. Sed condimentum aliquam justo. Maecenas vel molestie ex, quis cursus mi. Proin nulla nulla, tempor id maximus nec, efficitur ac enim. Aliquam non dapibus urna. Nam congue risus in sem aliquam dictum. Praesent eget arcu et ligula eleifend vestibulum in quis diam.<br><br>Duis eros ipsum, tincidunt at ligula et, malesuada suscipit libero. Mauris tristique augue at nisi pulvinar, sed luctus velit pulvinar. Integer eu erat in mauris condimentum accumsan. Sed ipsum quam, condimentum at mauris non, tincidunt ullamcorper lacus. Maecenas vestibulum neque in ultrices molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec risus enim. Vestibulum vitae eros vestibulum, rhoncus nibh at, consequat eros. Quisque tincidunt nec justo sed hendrerit. Integer egestas consectetur euismod. Morbi luctus lorem eget purus aliquam, nec tempor nisl varius. Proin dignissim neque tincidunt dapibus fermentum."
-        },
-        {
-            "id" : 1,
-            "name" : "Lanzamiento de Byte By Byte: The Animation",
-            "desc_short" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est.",
-            "date" : "26-08-2024",
-            "author" : "Admin",
-            "tag" : "Comic",
-            "image" : "Default.png",
-            "desc_long" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est. Donec bibendum felis a massa blandit, dignissim imperdiet dolor sodales. Praesent facilisis mauris eget lorem laoreet ultricies. Pellentesque sed elit eu massa lacinia commodo non et felis. Aenean diam turpis, volutpat id libero maximus, fermentum venenatis leo.<br><br>Vestibulum risus dolor, malesuada eget pulvinar non, vulputate in ligula. Fusce vitae magna dictum, laoreet mi sit amet, accumsan massa. Nulla tincidunt augue quis nisl lacinia pulvinar. In augue quam, vulputate sit amet dignissim a, posuere eu nulla. Etiam luctus magna sem, sed sodales magna laoreet sit amet. Praesent placerat volutpat sem at pretium. Donec lacinia eleifend gravida.<br><br>Curabitur condimentum tortor et erat consequat aliquet. Integer efficitur varius vulputate. Cras sem purus, laoreet eget vehicula eu, finibus ut justo. Nunc porttitor efficitur leo, vitae porttitor velit condimentum interdum. Sed ut elit ante. Sed vehicula ex mauris, ac iaculis elit vehicula et. Donec bibendum egestas porttitor. Suspendisse vulputate elit in erat scelerisque, et tristique urna tincidunt. Duis placerat gravida ex et varius. Curabitur aliquet est a ornare sollicitudin. Aenean vel malesuada ipsum. Cras sollicitudin malesuada massa in convallis. Integer mi sapien, maximus eu orci quis, bibendum placerat ipsum. Etiam sit amet facilisis metus, a luctus urna. Praesent gravida mattis purus suscipit porttitor.<br><br>Suspendisse vel vehicula ligula. Nullam aliquam eu libero vitae rhoncus. Sed dignissim egestas nibh, non vulputate neque iaculis ut. Sed condimentum aliquam justo. Maecenas vel molestie ex, quis cursus mi. Proin nulla nulla, tempor id maximus nec, efficitur ac enim. Aliquam non dapibus urna. Nam congue risus in sem aliquam dictum. Praesent eget arcu et ligula eleifend vestibulum in quis diam.<br><br>Duis eros ipsum, tincidunt at ligula et, malesuada suscipit libero. Mauris tristique augue at nisi pulvinar, sed luctus velit pulvinar. Integer eu erat in mauris condimentum accumsan. Sed ipsum quam, condimentum at mauris non, tincidunt ullamcorper lacus. Maecenas vestibulum neque in ultrices molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec risus enim. Vestibulum vitae eros vestibulum, rhoncus nibh at, consequat eros. Quisque tincidunt nec justo sed hendrerit. Integer egestas consectetur euismod. Morbi luctus lorem eget purus aliquam, nec tempor nisl varius. Proin dignissim neque tincidunt dapibus fermentum."
+            "tag" : "Videojuego",
+            "image" : "Game.png",
+            "url" : "https://github.com/Draklif/Byte-By-Byte-Unreal"
         },
         {
             "id" : 2,
-            "name" : "Lanzamiento de Byte By Byte: The Animation",
-            "desc_short" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est.",
-            "date" : "26-08-2024",
+            "name" : "Byte By Byte #8: Navidad de Bugs",
+            "desc_short" : "¡Nada dice espíritu navideño como una oficina decorada, un código lleno de errores y un Amigo Robot con sorpresas inesperadas! Mientras el Estudiante de Ingeniería sueña con una Navidad libre de bugs, la Amiga Diseñadora y el Amigo Robot se aseguran de que las risas (y los errores) nunca falten. 🎁🤖 ¿Qué sería de las fiestas sin un toque de caos festivo? 🎅💡 ¿Cuál es tu deseo navideño este año? Comenta y comparte tu experiencia con los bugs en esta temporada. 🐞❄️",
+            "date" : "27-11-2024",
             "author" : "Admin",
             "tag" : "Comic",
-            "image" : "Default.png",
-            "desc_long" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est. Donec bibendum felis a massa blandit, dignissim imperdiet dolor sodales. Praesent facilisis mauris eget lorem laoreet ultricies. Pellentesque sed elit eu massa lacinia commodo non et felis. Aenean diam turpis, volutpat id libero maximus, fermentum venenatis leo.<br><br>Vestibulum risus dolor, malesuada eget pulvinar non, vulputate in ligula. Fusce vitae magna dictum, laoreet mi sit amet, accumsan massa. Nulla tincidunt augue quis nisl lacinia pulvinar. In augue quam, vulputate sit amet dignissim a, posuere eu nulla. Etiam luctus magna sem, sed sodales magna laoreet sit amet. Praesent placerat volutpat sem at pretium. Donec lacinia eleifend gravida.<br><br>Curabitur condimentum tortor et erat consequat aliquet. Integer efficitur varius vulputate. Cras sem purus, laoreet eget vehicula eu, finibus ut justo. Nunc porttitor efficitur leo, vitae porttitor velit condimentum interdum. Sed ut elit ante. Sed vehicula ex mauris, ac iaculis elit vehicula et. Donec bibendum egestas porttitor. Suspendisse vulputate elit in erat scelerisque, et tristique urna tincidunt. Duis placerat gravida ex et varius. Curabitur aliquet est a ornare sollicitudin. Aenean vel malesuada ipsum. Cras sollicitudin malesuada massa in convallis. Integer mi sapien, maximus eu orci quis, bibendum placerat ipsum. Etiam sit amet facilisis metus, a luctus urna. Praesent gravida mattis purus suscipit porttitor.<br><br>Suspendisse vel vehicula ligula. Nullam aliquam eu libero vitae rhoncus. Sed dignissim egestas nibh, non vulputate neque iaculis ut. Sed condimentum aliquam justo. Maecenas vel molestie ex, quis cursus mi. Proin nulla nulla, tempor id maximus nec, efficitur ac enim. Aliquam non dapibus urna. Nam congue risus in sem aliquam dictum. Praesent eget arcu et ligula eleifend vestibulum in quis diam.<br><br>Duis eros ipsum, tincidunt at ligula et, malesuada suscipit libero. Mauris tristique augue at nisi pulvinar, sed luctus velit pulvinar. Integer eu erat in mauris condimentum accumsan. Sed ipsum quam, condimentum at mauris non, tincidunt ullamcorper lacus. Maecenas vestibulum neque in ultrices molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec risus enim. Vestibulum vitae eros vestibulum, rhoncus nibh at, consequat eros. Quisque tincidunt nec justo sed hendrerit. Integer egestas consectetur euismod. Morbi luctus lorem eget purus aliquam, nec tempor nisl varius. Proin dignissim neque tincidunt dapibus fermentum."
+            "image" : "Comic_8.jpg",
+            "url" : "https://www.instagram.com/p/DC5MPVKOAY8/?img_index=1"
         },
         {
             "id" : 3,
-            "name" : "Lanzamiento de Byte By Byte: The Animation",
-            "desc_short" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est.",
-            "date" : "26-08-2024",
+            "name" : "Lanzamiento de Byte By Byte: Debugged",
+            "desc_short" : "¿Te has preguntado qué sucede en la mente de un ingeniero de sistemas en plena madrugada? 💻🌙 Debugged te invita a un fascinante viaje en stop motion, donde un joven programador enfrenta un misterioso error que podría transformar por completo su noche. 🖱️⚡ Con una estética envolvente y una trama intrigante, este corto de un minuto te sumerge en el mundo de la programación, donde los bugs en el código se convierten en desafíos inesperados. ¿Podrá resolver el enigma? Descúbrelo en Debugged, una experiencia visual que mezcla tecnología y creatividad de forma sorprendente. 🚀✨",
+            "date" : "21-11-2024",
             "author" : "Admin",
-            "tag" : "Comic",
-            "image" : "Default.png",
-            "desc_long" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est. Donec bibendum felis a massa blandit, dignissim imperdiet dolor sodales. Praesent facilisis mauris eget lorem laoreet ultricies. Pellentesque sed elit eu massa lacinia commodo non et felis. Aenean diam turpis, volutpat id libero maximus, fermentum venenatis leo.<br><br>Vestibulum risus dolor, malesuada eget pulvinar non, vulputate in ligula. Fusce vitae magna dictum, laoreet mi sit amet, accumsan massa. Nulla tincidunt augue quis nisl lacinia pulvinar. In augue quam, vulputate sit amet dignissim a, posuere eu nulla. Etiam luctus magna sem, sed sodales magna laoreet sit amet. Praesent placerat volutpat sem at pretium. Donec lacinia eleifend gravida.<br><br>Curabitur condimentum tortor et erat consequat aliquet. Integer efficitur varius vulputate. Cras sem purus, laoreet eget vehicula eu, finibus ut justo. Nunc porttitor efficitur leo, vitae porttitor velit condimentum interdum. Sed ut elit ante. Sed vehicula ex mauris, ac iaculis elit vehicula et. Donec bibendum egestas porttitor. Suspendisse vulputate elit in erat scelerisque, et tristique urna tincidunt. Duis placerat gravida ex et varius. Curabitur aliquet est a ornare sollicitudin. Aenean vel malesuada ipsum. Cras sollicitudin malesuada massa in convallis. Integer mi sapien, maximus eu orci quis, bibendum placerat ipsum. Etiam sit amet facilisis metus, a luctus urna. Praesent gravida mattis purus suscipit porttitor.<br><br>Suspendisse vel vehicula ligula. Nullam aliquam eu libero vitae rhoncus. Sed dignissim egestas nibh, non vulputate neque iaculis ut. Sed condimentum aliquam justo. Maecenas vel molestie ex, quis cursus mi. Proin nulla nulla, tempor id maximus nec, efficitur ac enim. Aliquam non dapibus urna. Nam congue risus in sem aliquam dictum. Praesent eget arcu et ligula eleifend vestibulum in quis diam.<br><br>Duis eros ipsum, tincidunt at ligula et, malesuada suscipit libero. Mauris tristique augue at nisi pulvinar, sed luctus velit pulvinar. Integer eu erat in mauris condimentum accumsan. Sed ipsum quam, condimentum at mauris non, tincidunt ullamcorper lacus. Maecenas vestibulum neque in ultrices molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec risus enim. Vestibulum vitae eros vestibulum, rhoncus nibh at, consequat eros. Quisque tincidunt nec justo sed hendrerit. Integer egestas consectetur euismod. Morbi luctus lorem eget purus aliquam, nec tempor nisl varius. Proin dignissim neque tincidunt dapibus fermentum."
+            "tag" : "Animation",
+            "image" : "Cover.png",
+            "url" : "https://www.youtube.com/watch?v=xO4qZcjRy00"
         },
         {
             "id" : 4,
-            "name" : "Lanzamiento de Byte By Byte: The Animation",
+            "name" : "Byte By Byte #7: Fin del Proyecto",
             "desc_short" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est.",
-            "date" : "26-08-2024",
+            "date" : "21-11-2024",
             "author" : "Admin",
             "tag" : "Comic",
-            "image" : "Default.png",
-            "desc_long" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est. Donec bibendum felis a massa blandit, dignissim imperdiet dolor sodales. Praesent facilisis mauris eget lorem laoreet ultricies. Pellentesque sed elit eu massa lacinia commodo non et felis. Aenean diam turpis, volutpat id libero maximus, fermentum venenatis leo.<br><br>Vestibulum risus dolor, malesuada eget pulvinar non, vulputate in ligula. Fusce vitae magna dictum, laoreet mi sit amet, accumsan massa. Nulla tincidunt augue quis nisl lacinia pulvinar. In augue quam, vulputate sit amet dignissim a, posuere eu nulla. Etiam luctus magna sem, sed sodales magna laoreet sit amet. Praesent placerat volutpat sem at pretium. Donec lacinia eleifend gravida.<br><br>Curabitur condimentum tortor et erat consequat aliquet. Integer efficitur varius vulputate. Cras sem purus, laoreet eget vehicula eu, finibus ut justo. Nunc porttitor efficitur leo, vitae porttitor velit condimentum interdum. Sed ut elit ante. Sed vehicula ex mauris, ac iaculis elit vehicula et. Donec bibendum egestas porttitor. Suspendisse vulputate elit in erat scelerisque, et tristique urna tincidunt. Duis placerat gravida ex et varius. Curabitur aliquet est a ornare sollicitudin. Aenean vel malesuada ipsum. Cras sollicitudin malesuada massa in convallis. Integer mi sapien, maximus eu orci quis, bibendum placerat ipsum. Etiam sit amet facilisis metus, a luctus urna. Praesent gravida mattis purus suscipit porttitor.<br><br>Suspendisse vel vehicula ligula. Nullam aliquam eu libero vitae rhoncus. Sed dignissim egestas nibh, non vulputate neque iaculis ut. Sed condimentum aliquam justo. Maecenas vel molestie ex, quis cursus mi. Proin nulla nulla, tempor id maximus nec, efficitur ac enim. Aliquam non dapibus urna. Nam congue risus in sem aliquam dictum. Praesent eget arcu et ligula eleifend vestibulum in quis diam.<br><br>Duis eros ipsum, tincidunt at ligula et, malesuada suscipit libero. Mauris tristique augue at nisi pulvinar, sed luctus velit pulvinar. Integer eu erat in mauris condimentum accumsan. Sed ipsum quam, condimentum at mauris non, tincidunt ullamcorper lacus. Maecenas vestibulum neque in ultrices molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nec risus enim. Vestibulum vitae eros vestibulum, rhoncus nibh at, consequat eros. Quisque tincidunt nec justo sed hendrerit. Integer egestas consectetur euismod. Morbi luctus lorem eget purus aliquam, nec tempor nisl varius. Proin dignissim neque tincidunt dapibus fermentum."
+            "image" : "Comic_7.jpg",
+            "url" : "https://www.instagram.com/p/DCpwsE0OtYc/?img_index=1"
+        },
+        {
+            "id" : 5,
+            "name" : "Byte By Byte #6: Depuración Mágica",
+            "desc_short" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris egestas feugiat ex nec dapibus. Sed neque odio, sollicitudin non luctus a, feugiat sit amet orci. Integer ornare lacus nec rutrum ornare. Integer sem neque, egestas sed commodo in, accumsan a est.",
+            "date" : "13-11-2024",
+            "author" : "Admin",
+            "tag" : "Comic",
+            "image" : "Comic_6.jpg",
+            "url" : "https://www.instagram.com/p/DCVbdLSOD-m/?img_index=1"
+        },
+        {
+            "id" : 6,
+            "name" : "Byte By Byte #5: Reinicio Existencial",
+            "desc_short" : "¡Reinicio existencial! 💻🔄 En este quinto capítulo, nuestro estudiante de ingeniería enfrenta una crisis de sistema: un error crítico lo obliga a reiniciar su laptop, dejándolo frustrado y resignado. Mientras observa la pantalla en blanco, su amigo robot, muy serio, le da una lección: “Siempre debes hacer un backup.” Con un suspiro, el estudiante admite que lo olvidó, y, vencido, apoya la cabeza en la mesa, mientras el robot permanece impasible.",
+            "date" : "06-11-2024",
+            "author" : "Admin",
+            "tag" : "Comic",
+            "image" : "Comic_5.jpg",
+            "url" : "https://www.instagram.com/p/DCDMBgDuApS/?img_index=1"
+        },
+        {
+            "id" : 7,
+            "name" : "Byte By Byte #4: Halloween de Bugs",
+            "desc_short" : "¡Halloween de Bugs! 🎃💻 Un estudiante de ingeniería lucha contra errores en su código, que aparecen como fantasmas y calaveras en su pantalla. En su oficina decorada para Halloween, su amiga diseñadora, disfrazada de vampiro, se ríe de sus problemas, mientras su amigo robot, vestido de Frankenstein, bromea con más 'bugs fantasma'. ¿Logrará el estudiante arreglar el código o los errores lo vencerán? 👻💀.",
+            "date" : "30-10-2024",
+            "author" : "Admin",
+            "tag" : "Comic",
+            "image" : "Comic_4.jpg",
+            "url" : "https://www.instagram.com/p/DBxEYC-u4yo/?img_index=1"
+        },
+        {
+            "id" : 8,
+            "name" : "Byte By Byte #3: Deadline Apocalíptico",
+            "desc_short" : "¡El apocalipsis de las entregas ha llegado! ⏳💻 En este tercer capítulo, un estudiante de ingeniería de sistemas se enfrenta a su peor enemigo: el deadline. Mientras el caos reina en su oficina, con relojes derretidos al estilo de Dalí y montañas de gadgets desparramados, su único compañero, un robot imperturbable, sigue trabajando con calma robótica. 🤖🛠️ ¿Logrará el estudiante sobrevivir a esta carrera contra el tiempo o se rendirá ante la desesperación? 🕰️.",
+            "date" : "23-10-2024",
+            "author" : "Admin",
+            "tag" : "Comic",
+            "image" : "Comic_3.jpg",
+            "url" : "https://www.instagram.com/p/DBfBZFmuz1o/?img_index=1"
+        },
+        {
+            "id" : 9,
+            "name" : "Byte By Byte #2: El Consejo del Profesor",
+            "desc_short" : "¡El profesor ha llegado con sabiduría y enigmas! 🤔📚 En este segundo capítulo, un estudiante de ingeniería de sistemas, al borde del colapso por un código rebelde, recibe una visita inesperada. Su profesor, con su estilo peculiar, le lanza un consejo tan críptico como profundo. ¿Será la clave para resolver el problema o solo otro enigma? 🤖✨ ¡El mundo de la programación nunca deja de sorprender con sus giros inesperados!",
+            "date" : "16-10-2024",
+            "author" : "Admin",
+            "tag" : "Comic",
+            "image" : "Comic_2.jpg",
+            "url" : "https://www.instagram.com/p/DBNb1BeusCz/?img_index=1"
+        },
+        {
+            "id" : 10,
+            "name" : "Byte By Byte #1: Presentación",
+            "desc_short" : "¡El código ha cobrado vida! 👾💻 En este primer capítulo, un ingeniero de sistemas y su robot enfrentan un bug fuera de control. ¿Lograrán depurarlo antes de que todo colapse? 🤖✨ ¡La programación nunca fue tan caótica y divertida!",
+            "date" : "09-10-2024",
+            "author" : "Admin",
+            "tag" : "Comic",
+            "image" : "Comic_1.jpg",
+            "url" : "https://www.instagram.com/p/DA6-LyGOwrY/?img_index=1"
         }
     ]
 }

@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,8 +11,6 @@ interface HeroProps {
 }
 
 function Hero({ backgroundImage, coverImage, videoTitle, videoUrl, glowColor }: HeroProps) {
-  const router = useNavigate();
-
   return (
     <div className="relative w-[70%] h-[400px] md:h-[600px] bg-cover bg-center mx-auto rounded-lg"
       style={{
@@ -34,7 +31,9 @@ function Hero({ backgroundImage, coverImage, videoTitle, videoUrl, glowColor }: 
         </div>
         <div className="ml-8 text-white flex items-center">
           <button
-            onClick={() => router({ to: videoUrl })}
+            onClick={() => {
+              window.location.href = videoUrl;
+            }}
             className="mr-4 text-white font-bold p-8 px-9 rounded-full flex items-center justify-center"
             style={{
               backgroundColor: "#495154",

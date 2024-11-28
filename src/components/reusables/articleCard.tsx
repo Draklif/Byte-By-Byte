@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { Article } from "@/types";
 
 interface ArticleCardProps {
@@ -6,8 +5,6 @@ interface ArticleCardProps {
 }
 
 function ArticleCard({ article }: ArticleCardProps) {
-  const router = useNavigate();
-
   return (
     <div className="text-white rounded-xl p-6 mb-4 shadow-lg" style={{backgroundColor: "#262626"}}>
       <div className="flex items-center mb-2">
@@ -26,7 +23,9 @@ function ArticleCard({ article }: ArticleCardProps) {
       </p>
       <div className="flex justify-between items-center">
         <button
-          onClick={() => router({ to: `/noticias/${article.id}` })}
+          onClick={() => {
+            window.location.href = article.url;
+          }}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Ver ahora

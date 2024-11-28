@@ -1,4 +1,3 @@
-import { useNavigate } from "@tanstack/react-router";
 import { Article } from "@/types";
 
 interface FeaturedCardProps {
@@ -6,8 +5,6 @@ interface FeaturedCardProps {
 }
 
 function FeaturedCard({ article }: FeaturedCardProps) {
-  const router = useNavigate();
-
   return (
     <div className="overflow-hidden">
       <div className="w-full" style={{ aspectRatio: "16 / 9" }}>
@@ -21,7 +18,9 @@ function FeaturedCard({ article }: FeaturedCardProps) {
         <h3 className="text-md font-medium text-white">{article.name}</h3>
         <div className="mt-4">
           <span
-            onClick={() => router({ to: `/noticias/${article.id}` })}
+            onClick={() => {
+              window.location.href = article.url;
+            }}
             className="cursor-pointer hover:underline"
             style={{color: "#d0eacf"}}
           >

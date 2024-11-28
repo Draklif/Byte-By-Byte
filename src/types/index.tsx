@@ -6,6 +6,6 @@ export interface Article {
     author: string;
     tag: string;
     image: string;
-    desc_long: string;
+    url: string;
 }
   
