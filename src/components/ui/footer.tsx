@@ -4,7 +4,7 @@ function Footer() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
         {/* Columna 1: Logo y derechos reservados */}
         <div className="flex flex-col items-center lg:items-start">
-          <img src="./LogoUDB.png" alt="Logo Universidad de Boyacá" className="h-12 mb-4" />
+          <img src="LogoUDB.png" alt="Logo Universidad de Boyacá" className="h-12 mb-4" />
           <p className="text-gray-400 text-sm text-center lg:text-left">
             &copy; © 2024 Universidad de Boyacá. Todos los derechos reservados. 
           </p>

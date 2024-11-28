@@ -15,6 +15,7 @@ export const Route = createRootRoute({
         </Link>
       </div> */}
       <hr />
+      <h1>ayud</h1>
       <Outlet />
     </>
   ),
