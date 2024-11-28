@@ -9,7 +9,7 @@ function FeaturedCard({ article }: FeaturedCardProps) {
     <div className="overflow-hidden">
       <div className="w-full" style={{ aspectRatio: "16 / 9" }}>
         <img
-          src={`/${article.image}`}
+          src={article.image}
           alt={article.name}
           className="w-full h-full object-cover rounded-lg"
         />
