@@ -14,5 +14,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: "/Byte-By-Byte-Page/"
+  base: "/Byte-By-Byte/"
 })
